@@ -5,6 +5,8 @@ import (
 	"fmt"
 	"os"
 	"os/exec"
+
+	"github.com/pglaum/aoc-go/internal/utils"
 )
 
 var (
@@ -45,11 +47,11 @@ func main() {
 		return
 	}
 
-	inputPath := fmt.Sprintf(inputPathTemplate, *yearPtr, *dayPtr, "input")
-	fmt.Println("input path:", inputPath)
-	if fileInfo, err := os.Stat(inputPath); err != nil || fileInfo.IsDir() {
+	inputPath, err := utils.FetchInput(*yearPtr, *dayPtr)
+	if err != nil {
 		panic("input file does not exist")
 	}
+	fmt.Println("input path:", inputPath)
 
 	solutionPath := fmt.Sprintf(pathTemplate, *yearPtr, *dayPtr)
 	fmt.Println("solution path:", solutionPath)
