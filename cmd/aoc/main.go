@@ -42,6 +42,7 @@ func main() {
 		if err := cmd.Run(); err != nil {
 			panic(err)
 		}
+		return
 	}
 
 	inputPath := fmt.Sprintf(inputPathTemplate, *yearPtr, *dayPtr, "input")
