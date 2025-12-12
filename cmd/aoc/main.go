@@ -82,6 +82,10 @@ func initSolutionTemplate(year, day int) error {
 			return err
 		}
 
+		if fileInfo, err := os.Stat(solutionPath); err == nil && !fileInfo.IsDir() {
+			return fmt.Errorf("file already exists: %s", solutionPath)
+		}
+
 		if err := os.WriteFile(solutionPath, input, 0644); err != nil {
 			return err
 		}
