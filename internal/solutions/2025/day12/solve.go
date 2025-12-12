@@ -4,6 +4,7 @@ import (
 	"flag"
 	"fmt"
 	"os"
+	"strings"
 	"time"
 )
 
@@ -29,17 +30,23 @@ func main() {
 		fmt.Printf("part 1: %v, took: %v\n", part1(string(puzzle)), time.Since(start))
 	}
 	if *part == 2 || *part == 0 {
-		start := time.Now()
-		fmt.Printf("part 2: %v, took: %v\n", part2(string(puzzle)), time.Since(start))
+		fmt.Printf("there is no part 2 for this puzzle")
 	}
 }
 
 func part1(puzzle string) (count int) {
-	_ = puzzle
-	return count
-}
+	// naive approach: just check the area size
+	regions := strings.Split(strings.ReplaceAll(puzzle, "\r\n", "\n"), "\n\n")
+	trees := strings.SplitSeq(strings.TrimSpace(regions[len(regions)-1]), "\n")
+	for tree := range trees {
+		var x, y, a, b, c, d, e, f int
+		fmt.Sscanf(tree, "%dx%d: %d %d %d %d %d %d", &x, &y, &a, &b, &c, &d, &e, &f)
+		naivePresentArea := (a + b + c + d + e + f) * 3 * 3
+		treeArea := x * y
+		if (float64(naivePresentArea) * 0.88) < float64(treeArea) {
+			count++
+		}
+	}
 
-func part2(puzzle string) (count int) {
-	_ = puzzle
 	return count
 }
